@@ -1,0 +1,31 @@
+name: Build and test Nim
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nim: [ '1.0.2', '1.2.0', 'stable' ]
+    steps:
+      - uses: actions/checkout@master
+      - name: Cache choosenim
+        id: cache-choosenim
+        uses: actions/cache@v1
+        with:
+          path: ~/.choosenim
+          key: ${{ runner.os }}-choosenim-stable
+      - name: Cache nimble
+        id: cache-nimble
+        uses: actions/cache@v1
+        with:
+          path: ~/.nimble
+          key: ${{ runner.os }}-nimble-stable
+      - uses: jiro4989/setup-nim-action@v1.0.2
+        with:
+          nim-version: ${{ matrix.nim }}
+      - name: Build
+        run: nimble build -Y
+      # - name: Test
+      #   run: nimble test -Y
