@@ -53,7 +53,7 @@ proc create* (argc: int; arg: seq[string]): int {.discardable.} =
     repoName = arg[1]
     prodName = arg[1]
     repo = path.toRepo / repoName & ".git"
-    prod = if argc > 2: arg[2] / prodName else: path.toProd / prodName
+    prod = if argc > 2: arg[2] else: path.toProd / prodName
 
   createRepo repo
   createProd repo, prod
