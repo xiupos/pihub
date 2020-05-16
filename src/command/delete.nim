@@ -11,7 +11,7 @@ proc deleteRepo (repo: string): int {.discardable.} =
 # delete prod
 proc deleteProd (repo, prod: string): int {.discardable.} =
   echo "Prod: " & prod
-  discard execProcess("docker-compose down", prod)
+  discard execProcess("docker-compose down --rmi all", prod)
   removeDir prod
   return 0
 
