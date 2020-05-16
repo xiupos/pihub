@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  build:
+    build: ./docker
+    container_name: build
+    volumes:
+      - .:/nim
+    working_dir: /nim
+    command: nimble build
+    environment:
+      - HOME=$HOME
